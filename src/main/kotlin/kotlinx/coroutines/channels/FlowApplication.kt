@@ -1,6 +1,5 @@
-package pl.doz.kotlin.flow
+package kotlinx.coroutines.channels
 
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -21,7 +20,19 @@ fun main() = runBlocking<Unit> {
 
 	launch {
 		channel.asChunkedFlow(4, 130).collect { items ->
-			println("${Thread.currentThread().name}: processing $items")
+			println("1: processing $items")
+			delay(100)
+		}
+	}
+	launch {
+		channel.asChunkedFlow(4, 130).collect { items ->
+			println("2: processing $items")
+			delay(100)
+		}
+	}
+	launch {
+		channel.asChunkedFlow(4, 130).collect { items ->
+			println("3: processing $items")
 			delay(100)
 		}
 	}

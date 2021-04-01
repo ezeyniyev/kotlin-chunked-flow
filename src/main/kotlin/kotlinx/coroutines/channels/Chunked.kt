@@ -1,6 +1,5 @@
-package pl.doz.kotlin.flow
+package kotlinx.coroutines.channels
 
-import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withTimeoutOrNull
 
