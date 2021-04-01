@@ -12,7 +12,7 @@ import kotlinx.coroutines.withTimeoutOrNull
  * @param timeout max millis to wait to load all requested items
  * @return result
  */
-suspend fun <T, C: MutableCollection<in T>> ReceiveChannel<T>.takeTo(result: C, size: Int, timeout: Long) : C {
+suspend fun <T, C: MutableCollection<in T>> ReceiveChannel<T>.receiveTo(result: C, size: Int, timeout: Long) : C {
     // try to poll already available in channel
     var leftToTake = size
     while (leftToTake > 0) {
@@ -37,7 +37,7 @@ fun <T> ReceiveChannel<T>.asChunkedFlow(chunkSize: Int, timeout: Long) : Flow<Li
     val channel = this
     return flow {
         for (item in channel) {
-            val buffer = takeTo(mutableListOf(item), chunkSize-1, timeout)
+            val buffer = receiveTo(mutableListOf(item), chunkSize-1, timeout)
             emit(buffer)
         }
     }
